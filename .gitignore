@@ -1,0 +1,14 @@
+# PyCharm
+.idea
+
+# Python
+*.pyc
+venv
+
+# Packages
+*.egg-info
+build
+/dist
+
+# Git
+*.orig
