@@ -37,7 +37,7 @@ S3_BACKUPER = {
     'aws': {
         'access_key_id': 'top_secret',  # Secure credentials from your AWS account.
         'secret_access_key': 'top_secret',
-        'bucket': 'top_secret'  # Bucket for storage
+        'bucket': 'top_secret'  # Bucket for storage.
     }
 }
 ```
