@@ -48,8 +48,10 @@ class Backuper:
                     self.get_dump_args(database=database),
                     stdout=fd
                 )
-
             zip_filename = '%s_%s.zip' % (sql_filename, dt)
+            prefix = database.get('prefix')
+            if prefix:
+                zip_filename = '%s_%s' % (prefix, zip_filename)
             zip_filepath = os.path.join(self.settings['tmp_dir'], zip_filename)
             with open(sql_filepath, 'r') as fd:
                 z = zipfile.ZipFile(zip_filepath, 'w', zipfile.ZIP_DEFLATED)

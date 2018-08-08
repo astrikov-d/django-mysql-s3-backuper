@@ -27,14 +27,15 @@ S3_BACKUPER = {
             'port': '3306',
             'name': 'top_secret',
             'user': 'top_secret',
-            'password': 'top_secret'
+            'password': 'top_secret',
+            'prefix': 'foo'  # Optional prefix if you are dumping databases with same name.
         }
     ],
     'mysql': {
-        'mysqldump': '/usr/bin/mysqldump'  # Path to your mysqldump
+        'mysqldump': '/usr/bin/mysqldump'  # Path to your mysqldump.
     },
     'aws': {
-        'access_key_id': 'top_secret',  # Secure credentials from your AWS account
+        'access_key_id': 'top_secret',  # Secure credentials from your AWS account.
         'secret_access_key': 'top_secret',
         'bucket': 'top_secret'  # Bucket for storage
     }
