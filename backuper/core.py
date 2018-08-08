@@ -26,12 +26,12 @@ class Backuper:
     def get_dump_args(self, database):
         return {
             'mysql': [
-                f'{self.settings["mysql"]["mysqldump"]}',
+                self.settings['mysql']['mysqldump'],
                 '-h',
                 database['host'],
                 '-u',
                 database['user'],
-                f'-p{database["password"]}',
+                '-p%s' % database["password"],
                 database['name']
             ]
         }[database['type']]
@@ -41,14 +41,14 @@ class Backuper:
         dt = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
         for database in self.settings['db']:
-            sql_filename = os.path.join(self.settings['tmp_dir'], f'{database["name"]}.dump.sql')
+            sql_filename = os.path.join(self.settings['tmp_dir'], '%s.dump.sql' % database["name"])
             with open(sql_filename, 'w') as fd:
                 call(
                     self.get_dump_args(database=database),
                     stdout=fd
                 )
 
-            zip_filename = os.path.join(self.settings['tmp_dir'], f'{sql_filename}_{dt}.zip')
+            zip_filename = os.path.join(self.settings['tmp_dir'], '%s_%s.zip' % (sql_filename, dt))
             with open(sql_filename, 'r') as fd:
                 z = zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED)
                 z.writestr(sql_filename, fd.read())

@@ -11,7 +11,7 @@ packages = find_packages()
 
 setup(
     name='django-mysql-s3-backuper',
-    version='0.0.1',
+    version='0.0.2',
     description='Simple s3 backups for django projects based on MySQL',
     long_description='Simple s3 backups for django projects based on MySQL',
     author='Dmitry Astrikov',
@@ -21,7 +21,7 @@ setup(
     include_package_data=True,
     py_modules=['backuper'],
     install_requires=[
-        'Django>=2.0.0',
+        'Django>=1.10.0',
         'boto3==1.7.72'
     ],
     license='MIT License',
@@ -31,6 +31,8 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Natural Language :: English',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6',
     ]
 )
