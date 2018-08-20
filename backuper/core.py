@@ -5,6 +5,7 @@ import zipfile
 from subprocess import call
 
 import boto3
+from botocore.exceptions import ParamValidationError
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
@@ -24,17 +25,22 @@ class Backuper:
         return getattr(settings, 'S3_BACKUPER', None)
 
     def get_dump_args(self, database):
-        return {
-            'mysql': [
-                self.settings['mysql']['mysqldump'],
-                '-h',
-                database['host'],
-                '-u',
-                database['user'],
-                '-p%s' % database["password"],
-                database['name']
-            ]
-        }[database['type']]
+        args = [
+            self.settings['mysql']['mysqldump'],
+            '-h',
+            database['host'],
+            '-u',
+            database['user'],
+            '-p%s' % database["password"],
+            database['name']
+        ]
+        if 'exclude' in database:
+            tables = ','.join(database['exclude'])
+            args.extend([
+                '--ignore-table',
+                '{%s}' % tables
+            ])
+        return args
 
     def make_dumps(self):
         zips = []
@@ -75,5 +81,8 @@ class Backuper:
         bucket = s3.Bucket(aws['bucket'])
         for zip_data in zips:
             with open(zip_data['path'], 'rb') as fd:
-                bucket.put_object(Key=zip_data['name'], Body=fd)
+                try:
+                    bucket.put_object(Key=zip_data['name'], Body=fd)
+                except ParamValidationError:
+                    pass
             os.remove(zip_data['path'])

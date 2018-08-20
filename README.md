@@ -22,12 +22,12 @@ Add this to your django settings.py file:
 S3_BACKUPER = {
     'db': [
         {
-            'type': 'mysql',
             'host': 'localhost',
             'port': '3306',
             'name': 'top_secret',
             'user': 'top_secret',
             'password': 'top_secret',
+            'exclude': ['table1', 'table2'],
             'prefix': 'foo'  # Optional prefix if you are dumping databases with same name.
         }
     ],
