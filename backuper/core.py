@@ -35,11 +35,10 @@ class Backuper:
             '-p%s' % database["password"],
             database['name']
         ]
-        if 'exclude' in database:
-            tables = ','.join(['%s.%s' % (database['name'], table) for table in database['exclude']])
+        for table in database.get('exclude', []):
             args.extend([
                 '--ignore-table',
-                '{%s}' % tables
+                '%s.%s' % (database['name'], table)
             ])
         return args
 

@@ -5,7 +5,7 @@ Features
 --------
 
 - Dump specified MySQL databases
-- Zip dumped files
+- Tar.gz-iping dumped files
 - Upload them to s3 bucket
 
 Installation

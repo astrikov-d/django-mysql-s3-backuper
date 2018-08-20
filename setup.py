@@ -11,7 +11,7 @@ packages = find_packages()
 
 setup(
     name='django-mysql-s3-backuper',
-    version='0.0.11',
+    version='0.0.12',
     description='Simple s3 backups for django projects based on MySQL',
     long_description='Simple s3 backups for django projects based on MySQL',
     author='Dmitry Astrikov',
